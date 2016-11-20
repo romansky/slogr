@@ -24,7 +24,11 @@ object Tester {
   def main(args: Array[String]): Unit = {
 
     implicit val lc = LoggingContext("myapp",3, "randomDatazzz")
-    logger.info("this is a logger message")(lc)
+    logger.info("this is a logger message")
+    logger.debug("this is a debug messsage")
+    logger.error("this is a debug messsage", new RuntimeException("I'm bad"))
+
+
 
   }
 }

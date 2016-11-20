@@ -1,5 +1,5 @@
 name := "slogr"
-organization := "com.uniformlyrandom.slogr"
+organization := "com.uniformlyrandom"
 version := "0.1"
 
 scalaVersion := "2.11.8"

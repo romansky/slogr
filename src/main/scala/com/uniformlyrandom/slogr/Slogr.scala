@@ -100,7 +100,7 @@ private object LoggerMacro {
       if ($underlying.isErrorEnabled) {
           val errId = ($message + java.util.UUID.randomUUID().toString).hashCode
           $mDCContext.getValues.foreach { case ((k,v)) => org.slf4j.MDC.put(k,v) }
-          org.slf4j.MDC.put("errorId", errId)
+          org.slf4j.MDC.put("errorId", errId.toString())
           $underlying.error($message)
           $mDCContext.getValues.keys.foreach(key => org.slf4j.MDC.remove(key))
           org.slf4j.MDC.remove("errorId")
@@ -118,7 +118,7 @@ private object LoggerMacro {
         if ($underlying.isErrorEnabled) {
           val errId = ($message + java.util.UUID.randomUUID().toString).hashCode
           $mDCContext.getValues.foreach { case ((k,v)) => org.slf4j.MDC.put(k,v) }
-          org.slf4j.MDC.put("errorId", errId)
+          org.slf4j.MDC.put("errorId", errId.toString())
           $underlying.error($message, $cause)
           $mDCContext.getValues.keys.foreach(key => org.slf4j.MDC.remove(key))
           org.slf4j.MDC.remove("errorId")
@@ -137,7 +137,7 @@ private object LoggerMacro {
        if ($underlying.isErrorEnabled) {
           val errId = ($message + java.util.UUID.randomUUID().toString).hashCode
           $mDCContext.getValues.foreach { case ((k,v)) => org.slf4j.MDC.put(k,v) }
-          org.slf4j.MDC.put("errorId", errId)
+          org.slf4j.MDC.put("errorId", errId.toString())
           $underlying.error($message, List(${args(0)}, ${args(0)}): _* )
           $mDCContext.getValues.keys.foreach(key => org.slf4j.MDC.remove(key))
           org.slf4j.MDC.remove("errorId")
@@ -149,7 +149,7 @@ private object LoggerMacro {
        if ($underlying.isErrorEnabled) {
           val errId = ($message + java.util.UUID.randomUUID().toString).hashCode
           $mDCContext.getValues.foreach { case ((k,v)) => org.slf4j.MDC.put(k,v) }
-          org.slf4j.MDC.put("errorId", errId)
+          org.slf4j.MDC.put("errorId", errId.toString())
           $underlying.error($message, ..$args)
           $mDCContext.getValues.keys.foreach(key => org.slf4j.MDC.remove(key))
           org.slf4j.MDC.remove("errorId")
