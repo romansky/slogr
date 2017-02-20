@@ -1,8 +1,8 @@
 name := "slogr"
 organization := "com.uniformlyrandom"
-version := "0.1"
+version := "0.2"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.1"
 
 libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-api" % "1.7.21",
