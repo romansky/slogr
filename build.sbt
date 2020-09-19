@@ -1,13 +1,14 @@
 import sbt.Keys._
+import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
+
 
 name := "slogr"
 organization := "com.uniformlyrandom"
-val _scalaVersion = "2.12.4"
+val _scalaVersion = "2.12.12"
 
 scalaVersion := _scalaVersion
 
-lazy val slogr = crossProject
-  .in(file("."))
+lazy val slogr = crossProject(JSPlatform, JVMPlatform)
   .settings(
     organization := "com.uniformlyrandom",
     name := "slogr",
@@ -18,16 +19,14 @@ lazy val slogr = crossProject
   )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "org.slf4j" % "slf4j-api" % "1.7.21"
+      "org.slf4j" % "slf4j-api" % "1.7.30"
     ),
     resolvers ++= Seq(
-      "Typesafe Repo" at "http://repo.typesafe.com/typesafe/releases/"
+      "Typesafe Repo" at "https://repo.typesafe.com/typesafe/releases/"
     )
   )
   .jsSettings(
-    emitSourceMaps := true,
     libraryDependencies ++= Seq(),
-    jsDependencies ++= Seq()
   )
 
 lazy val slogrJS = slogr.js
