@@ -1,18 +1,18 @@
-import sbt.Keys._
-import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
+import sbtcrossproject.CrossPlugin.autoImport.crossProject
 
-val _version = "0.4"
 val _scalaVersion = "2.12.12"
+val _organization = "com.uniformlyrandom"
+val _version = "0.4.0"
 
-name := "slogr"
-organization := "com.uniformlyrandom"
 version := _version
-
 scalaVersion := _scalaVersion
+organization := _organization
+
+skip in publish := true
 
 lazy val slogr = crossProject(JSPlatform, JVMPlatform)
   .settings(
-    organization := "com.uniformlyrandom",
+    organization := _organization,
     name := "slogr",
     version := _version,
     scalacOptions += "-feature",
@@ -20,6 +20,7 @@ lazy val slogr = crossProject(JSPlatform, JVMPlatform)
     licenses := Seq(("MIT", url("http://opensource.org/licenses/mit-license.php"))),
     //    scalacOptions ++= Seq("-Ymacro-debug-lite"),
     scalaVersion := _scalaVersion,
+    // Sonatype
     publishArtifact in Test := false,
     publishTo := sonatypePublishToBundle.value,
     publishConfiguration := publishConfiguration.value.withOverwrite(true),
@@ -38,14 +39,6 @@ lazy val slogr = crossProject(JSPlatform, JVMPlatform)
     // publish Github sources
   )
   .settings(xerial.sbt.Sonatype.sonatypeSettings: _*)
-  .jvmSettings(
-    libraryDependencies ++= Seq(
-      "org.slf4j" % "slf4j-api" % "1.7.30"
-    ),
-    resolvers ++= Seq(
-      "Typesafe Repo" at "https://repo.typesafe.com/typesafe/releases/"
-    )
-  )
   .jsSettings(
     libraryDependencies ++= Seq(),
     scalacOptions ++= (
@@ -58,6 +51,14 @@ lazy val slogr = crossProject(JSPlatform, JVMPlatform)
             "https://raw.githubusercontent.com/japgolly/scalajs-react"
           s"-P:scalajs:mapSourceURI:$a->$g/v${version.value}/"
         }))
+  )
+  .jvmSettings(
+    libraryDependencies ++= Seq(
+      "org.slf4j" % "slf4j-api" % "1.7.30"
+    ),
+    resolvers ++= Seq(
+      "Typesafe Repo" at "https://repo.typesafe.com/typesafe/releases/"
+    )
   )
 
 lazy val slogrJS = slogr.js
