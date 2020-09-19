@@ -1,10 +1,12 @@
 import sbt.Keys._
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
+val _version = "0.4"
+val _scalaVersion = "2.12.12"
 
 name := "slogr"
 organization := "com.uniformlyrandom"
-val _scalaVersion = "2.12.12"
+version := _version
 
 scalaVersion := _scalaVersion
 
@@ -12,7 +14,7 @@ lazy val slogr = crossProject(JSPlatform, JVMPlatform)
   .settings(
     organization := "com.uniformlyrandom",
     name := "slogr",
-    version := "0.4",
+    version := _version,
     scalacOptions += "-feature",
     homepage := Some(url("http://www.uniformlyrandom.com")),
     licenses := Seq(("MIT", url("http://opensource.org/licenses/mit-license.php"))),
