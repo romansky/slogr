@@ -35,7 +35,10 @@ lazy val slogr = crossProject(JSPlatform, JVMPlatform)
             <name>Roman Landenband</name>
             <url>http://www.uniformlyrandom.com</url>
           </developer>
-        </developers>
+        </developers>,
+    libraryDependencies ++= Seq(
+      "org.scala-lang" % "scala-reflect" % scalaVersion.value % Provided
+    )
     // publish Github sources
   )
   .settings(xerial.sbt.Sonatype.sonatypeSettings: _*)
