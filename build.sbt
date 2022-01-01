@@ -2,13 +2,15 @@ import sbtcrossproject.CrossPlugin.autoImport.crossProject
 
 val _scalaVersion = "2.13.7"
 val _organization = "com.uniformlyrandom"
-val _version = "0.4.0"
+val _version = "0.5.0"
 
 version := _version
 scalaVersion := _scalaVersion
 organization := _organization
 
-skip in publish := true
+publish / skip := true
+
+credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
 
 lazy val slogr = crossProject(JSPlatform, JVMPlatform)
   .settings(
@@ -16,12 +18,12 @@ lazy val slogr = crossProject(JSPlatform, JVMPlatform)
     name := "slogr",
     version := _version,
     scalacOptions += "-feature",
-    homepage := Some(url("http://www.uniformlyrandom.com")),
-    licenses := Seq(("MIT", url("http://opensource.org/licenses/mit-license.php"))),
+    homepage := Some(url("https://www.uniformlyrandom.com")),
+    licenses := Seq(("MIT", url("https://opensource.org/licenses/mit-license.php"))),
     //    scalacOptions ++= Seq("-Ymacro-debug-lite"),
     scalaVersion := _scalaVersion,
     // Sonatype
-    publishArtifact in Test := false,
+    Test / publishArtifact  := false,
     publishTo := sonatypePublishToBundle.value,
     publishConfiguration := publishConfiguration.value.withOverwrite(true),
     pomExtra :=
@@ -39,25 +41,11 @@ lazy val slogr = crossProject(JSPlatform, JVMPlatform)
     libraryDependencies ++= Seq(
       "org.scala-lang" % "scala-reflect" % scalaVersion.value % Provided
     )
-    // publish Github sources
   )
   .settings(xerial.sbt.Sonatype.sonatypeSettings: _*)
-  .jsSettings(
-    libraryDependencies ++= Seq(),
-    scalacOptions ++= (
-      if (isSnapshot.value) Seq.empty
-      else
-        Seq({
-          val a = baseDirectory.value.toURI.toString
-            .replaceFirst("[^/]+/?$", "")
-          val g =
-            "https://raw.githubusercontent.com/japgolly/scalajs-react"
-          s"-P:scalajs:mapSourceURI:$a->$g/v${version.value}/"
-        }))
-  )
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "org.slf4j" % "slf4j-api" % "1.7.30"
+      "org.slf4j" % "slf4j-api" % "1.7.32"
     ),
     resolvers ++= Seq(
       "Typesafe Repo" at "https://repo.typesafe.com/typesafe/releases/"
