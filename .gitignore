@@ -19,3 +19,5 @@ build-log.xml
 *.iml
 examples
 playground.scala
+
+0_local.sbt

@@ -1,11 +1,8 @@
 import sbtcrossproject.CrossPlugin.autoImport.crossProject
 
-val _scalaVersion = "2.13.7"
 val _organization = "com.uniformlyrandom"
-val _version = "0.5.0"
 
-version := _version
-scalaVersion := _scalaVersion
+version := CommonVersions.slogr
 organization := _organization
 
 publish / skip := true
@@ -16,12 +13,12 @@ lazy val slogr = crossProject(JSPlatform, JVMPlatform)
   .settings(
     organization := _organization,
     name := "slogr",
-    version := _version,
+    version := CommonVersions.slogr,
     scalacOptions += "-feature",
     homepage := Some(url("https://www.uniformlyrandom.com")),
     licenses := Seq(("MIT", url("https://opensource.org/licenses/mit-license.php"))),
     //    scalacOptions ++= Seq("-Ymacro-debug-lite"),
-    scalaVersion := _scalaVersion,
+    scalaVersion := CommonVersions.scala,
     // Sonatype
     Test / publishArtifact  := false,
     publishTo := sonatypePublishToBundle.value,
@@ -45,7 +42,7 @@ lazy val slogr = crossProject(JSPlatform, JVMPlatform)
   .settings(xerial.sbt.Sonatype.sonatypeSettings: _*)
   .jvmSettings(
     libraryDependencies ++= Seq(
-      "org.slf4j" % "slf4j-api" % "1.7.32"
+      "org.slf4j" % "slf4j-api" % CommonVersions.slf4japi
     ),
     resolvers ++= Seq(
       "Typesafe Repo" at "https://repo.typesafe.com/typesafe/releases/"
